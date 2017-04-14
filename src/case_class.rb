@@ -23,6 +23,11 @@ end
 # Codigo que entienden las case classes aca
 Case_Class = Proc.new do
 
+    self.singleton_class.send(:alias_method, :oldNew, :new)
+    def self.new(*args)
+        self.oldNew(*args).freeze
+    end
+
     def var_values
         Proc.new do |var|
 			self.instance_variable_get(var)
@@ -42,6 +47,13 @@ Case_Class = Proc.new do
 		self.instance_variables.map(&self.var_values) == 
 		otro.instance_variables.map(&otro.var_values)
 	end
+
+    def hash
+        7 +
+        self.instance_variables.map(&self.var_values)
+        .map {|var| var.hash}
+        .reduce(0,:+)
+    end
 
 	def self.attr_accessor(*args)
 		send :attr_reader, *args

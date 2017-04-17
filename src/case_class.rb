@@ -62,6 +62,11 @@ Case_Class = Proc.new do
 
 	def self.attr_accessor(*args)
 		send :attr_reader, *args
+		define_method(:initialize) do |*valores|
+			args.zip valores.each do |par_variable_valor|
+				instance_variable_set('@' + par_variable_valor.first.to_s, par_variable_valor.last)
+			end
+		end
 	end
 	
 	def self.case_class?

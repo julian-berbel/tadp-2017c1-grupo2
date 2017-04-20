@@ -52,6 +52,12 @@ Case_Class = Proc.new do
 		otro.var_values
 	end
 
+    def ===(otro)
+		var_values.zip(otro.var_values).all? do |par_patron_variable|
+            par_patron_variable.first.===(par_patron_variable.last)
+        end
+	end
+
     def hash
         7 +
         self.var_values
@@ -120,4 +126,40 @@ class Case_dummy
 		mi_objeto.freeze
 		Object.const_set @sym, mi_objeto
 	end
+end
+
+Si = Object.new
+
+Si.define_singleton_method(:===) do |var|
+    true
+end
+
+class Patron_is_a
+    def initialize(una_clase)
+        @clase = una_clase
+    end
+
+    def ===(un_objeto)
+        un_objeto.is_a? @clase
+    end
+end
+
+class Patron_has
+    def initialize(symbol, value)
+        @symbol = ('@' + symbol.to_s).to_sym
+        @value = value
+    end
+
+    def ===(un_objeto)
+        un_objeto.instance_variables.include?(@symbol) &&
+        un_objeto.instance_variable_get(@symbol) == @value
+    end
+end
+
+def self.is_a(una_clase)
+    Patron_is_a.new(una_clase)
+end
+
+def self.has(symbol, value)
+    Patron_has.new(symbol, value)
 end

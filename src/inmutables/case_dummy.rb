@@ -17,8 +17,9 @@ class Case_dummy
 	
 	def class_eval(&un_bloque)
         mi_clase = Object.const_set @nombre, Class.new(@padre)
-		mi_clase.class_eval(&Case_Class)
+		mi_clase.include(Case_Class)
 		mi_clase.class_eval(&un_bloque)
+		mi_clase.include(Buenos_Defaults)
 		
 		Object.send(:define_method, @nombre) do |*args|
 			Object.const_get(__method__).new(*args)

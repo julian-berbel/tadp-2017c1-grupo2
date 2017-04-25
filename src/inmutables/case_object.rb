@@ -1,5 +1,8 @@
-def self.case_object(un_dummy, &codigo)
-	un_dummy.new_case_object(&codigo)
+
+class Object
+    def case_object(un_dummy, &codigo)
+	    un_dummy.new_case_object(&codigo)
+    end
 end
 
 

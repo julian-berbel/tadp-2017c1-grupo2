@@ -1,11 +1,7 @@
 class Object
-	def case_class?
-		false
-	end
-end
-
-def self.case_class(un_dummy, &codigo)
-	un_dummy.class_eval(&codigo)
+    def case_class(un_dummy, &codigo)
+	    un_dummy.class_eval(&codigo)
+    end
 end
 
 # Codigo que entienden las case classes aca
@@ -34,10 +30,6 @@ module Case_Class
 					instance_variable_set('@' + variable.to_s, valor)
 				end
 			end
-		end
-		
-		def case_class?
-			true
 		end
 		
 	end

@@ -8,6 +8,8 @@ class Is_a
     end
 end
 
-def self.is_a(una_clase)
-    Is_a.new(una_clase)
+class Object
+	def is_a(una_clase)
+		Is_a.new(una_clase)
+	end
 end

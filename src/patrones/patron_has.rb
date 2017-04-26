@@ -10,6 +10,8 @@ class Has
     end
 end
 
-def self.has(symbol, value)
-    Has.new(symbol, value)
+class Object
+	def has(symbol, value)
+		Has.new(symbol, value)
+	end
 end

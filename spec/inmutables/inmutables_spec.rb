@@ -1,0 +1,3 @@
+require_relative 'case_class_spec'
+require_relative 'case_object_spec'
+require_relative 'buenos_defaults_spec'

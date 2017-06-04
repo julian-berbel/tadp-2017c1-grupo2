@@ -1,4 +1,4 @@
-# TADP - TP METAPROGRAMACION - GRUPO 2
+# TADP - GRUPO 2
 
 ### Integrantes
 * Berbel Alt, Julián

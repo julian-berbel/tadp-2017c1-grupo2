@@ -8,6 +8,6 @@ case class Jinete(unDragon:Dragon)
   
   override def puedeCargar: Int = this.peso - unDragon.cuantoPuedeCargar
   
-  def velocidad: Int = copy(velocidad = unDragon.velocidad - this.peso)
+  def velocidad2: Int = copy(velocidad = unDragon.velocidad - this.peso)
   
 }

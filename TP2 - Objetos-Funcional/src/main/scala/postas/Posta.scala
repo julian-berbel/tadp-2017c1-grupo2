@@ -12,11 +12,11 @@ import vikingos.Vikingo
     def apply(vikingo: Vikingo, porcentaje: Int) = vikingo.hambre(porcentaje)
   }
   
-   def pesca: Posta = 
+  def pesca: Posta = 
   {
-     participantes:List[Vikingo] =>
-     participantes.map(hambrePosta(_,5))
-     participantes.sortWith(_.puedeCargar > _.puedeCargar)
+    participantes:List[Vikingo] =>
+    participantes.map(hambrePosta(_,5))
+    participantes.sortWith(_.puedeCargar > _.puedeCargar)
   } 
   
   def carrera(km: Int): Posta = 
@@ -26,4 +26,9 @@ import vikingos.Vikingo
     participantes.sortWith(_.velocidad > _.velocidad)
   } 
   
-  def combate:Posta = ???
+  def combate:Posta =  
+  {
+    participantes:List[Vikingo] =>
+    participantes.map(hambrePosta(_,10))
+    participantes.sortWith(_.danio > _.danio)
+  }

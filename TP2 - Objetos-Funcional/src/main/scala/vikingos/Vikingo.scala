@@ -5,9 +5,12 @@ case class Vikingo(peso: Int, item: Item, barbarosidad: Int, hambre: Int = 0, ve
 {
   def tieneUn(_item: Item) = item == _item
   
-  def puedeCargar: Int = peso/2 + barbarosidad * 2
+  def puedeCargar: Int = peso/2 + barbarosidad 
   
-  def danio(dani: Int): Vikingo = barbarosidad + dani
+  var danio = barbarosidad
+    
+  def calcularDanio(dani :Int): Vikingo = {danio = danio + dani
+                                           return this}
   
   def hambre(inc: Int): Vikingo = copy(hambre = hambre + inc)
 }

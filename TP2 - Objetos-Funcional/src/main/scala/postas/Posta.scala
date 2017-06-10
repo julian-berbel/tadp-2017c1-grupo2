@@ -9,13 +9,20 @@ import vikingos.Vikingo
   
   object hambrePosta
   {
-    def apply(vikingo: Vikingo, porcentaje: Int) = vikingo.hambre(porcentaje)
+    def apply(vikingo: Vikingo, porcentaje: Int) = {
+      if (vikingo.hambre + porcentaje > 100) {
+        vikingo.descalificar
+      } else {
+        vikingo.hambre(porcentaje)
+      }
+    }
   }
   
   def pesca: Posta = 
   {
     participantes:List[Vikingo] =>
     participantes.map(hambrePosta(_,5))
+    participantes.filter(!_.descalificado)
     participantes.sortWith(_.puedeCargar > _.puedeCargar)
   } 
   
@@ -23,6 +30,7 @@ import vikingos.Vikingo
   {
     participantes:List[Vikingo] =>
     participantes.map(hambrePosta(_,km))
+    participantes.filter(!_.descalificado)
     participantes.sortWith(_.velocidad > _.velocidad)
   } 
   
@@ -30,5 +38,6 @@ import vikingos.Vikingo
   {
     participantes:List[Vikingo] =>
     participantes.map(hambrePosta(_,10))
+    participantes.filter(!_.descalificado)
     participantes.sortWith(_.danio > _.danio)
   }

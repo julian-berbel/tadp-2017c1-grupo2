@@ -1,7 +1,7 @@
 package main.scala.vikingos
 import items.item._
 
-case class Vikingo(peso: Int, item: Item, barbarosidad: Int, hambre: Int = 0, velocidad: Int) 
+case class Vikingo(peso: Int, item: Item, barbarosidad: Int, hambre: Int = 0, velocidad: Int, descalificado: Boolean = false) 
 {
   def tieneUn(_item: Item) = item == _item
   
@@ -13,6 +13,8 @@ case class Vikingo(peso: Int, item: Item, barbarosidad: Int, hambre: Int = 0, ve
                                            return this}
   
   def hambre(inc: Int): Vikingo = copy(hambre = hambre + inc)
+  
+  def descalificar: Vikingo = copy(descalificado = true)
 }
 
 object hipo extends Vikingo(peso = ???, item = sistemaDeVuelo(_), barbarosidad = ???, velocidad = ???)

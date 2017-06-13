@@ -1,5 +1,6 @@
-package main.scala.dragones
-import vikingos.Vikingo
+package dragones
+
+import participantes.Vikingo
 
 abstract class Dragon(peso: Int) {
   def velocidadBasica: Int = 60

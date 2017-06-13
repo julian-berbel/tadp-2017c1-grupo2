@@ -1,7 +1,7 @@
 package postas.requerimientos
 
-import participantes.Participante
+import participantes.Vikingo
 
 trait Requerimiento{
-  def esCumplidoPor(participante: Participante): Boolean
+  def esCumplidoPor(vikingo: Vikingo): Boolean
 }

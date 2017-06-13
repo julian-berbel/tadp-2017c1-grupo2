@@ -1,11 +1,11 @@
 package postas
 
-import participantes.Participante
-import postas.requerimientos.BarbaridadMinima
+import participantes.Vikingo
+import postas.requerimientos.BarbaridadMinimaOArmado
 
-case class Combate(requerimiento: Some[BarbaridadMinima]) extends Posta{
-  def criterioPosta(participante: Participante): Int =
-    participante.danio
+case class Combate(requerimiento: Some[BarbaridadMinimaOArmado]) extends Posta{
+  def criterioPosta(vikingo: Vikingo): Int =
+    vikingo.danio
 
   val cuantaHambreDa: Int = 10
 }

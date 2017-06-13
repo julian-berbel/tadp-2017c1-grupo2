@@ -1,20 +1,23 @@
 package postas
 
-import participantes.Participante
+import participantes.{Jinete, Vikingo}
 import requerimientos._
 
 trait Posta{
   val requerimiento: Option[Requerimiento]
   val cuantaHambreDa: Int
 
-  def correr(participantes: List[Participante]): List[Participante] =
-    participantes.filter(_.puedeCorrer(this)).sortBy(criterioPosta).map(this(_))
+  def correr(vikingos: List[Vikingo]): List[Vikingo] =
+    vikingos.filter(_.puedeCorrer(this)).sortBy(criterioPosta).map(darHambre(_))
 
-  def criterioPosta(participante: Participante): Int
+  def criterioPosta(vikingo: Vikingo): Int
 
-  def cumpleRequisitos(participante: Participante): Boolean =
-    requerimiento.forall(_.esCumplidoPor(participante))
+  def cumpleRequisitos(vikingo: Vikingo): Boolean =
+    requerimiento.forall(_.esCumplidoPor(vikingo))
 
-  def apply(participante: Participante): Participante =
-    participante.deltaHambre(cuantaHambreDa)
+  def darHambre(vikingo: Vikingo): Vikingo =
+    vikingo.deltaHambre(vikingo match {
+      case (Jinete(_,_)) => 5
+      case _ => this.cuantaHambreDa
+    })
 }

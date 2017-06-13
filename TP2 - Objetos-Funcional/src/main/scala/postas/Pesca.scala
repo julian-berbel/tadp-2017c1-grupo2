@@ -1,11 +1,11 @@
 package postas
 
-import participantes.Participante
+import participantes.Vikingo
 import postas.requerimientos.PesoMinimo
 
 case class Pesca(requerimiento: Option[PesoMinimo] = None) extends Posta{
-  def criterioPosta(participante: Participante): Int =
-    participante.cuantoPuedeCargar
+  def criterioPosta(vikingo: Vikingo): Int =
+    vikingo.cuantoPuedeCargar
 
   val cuantaHambreDa: Int = 5
 }

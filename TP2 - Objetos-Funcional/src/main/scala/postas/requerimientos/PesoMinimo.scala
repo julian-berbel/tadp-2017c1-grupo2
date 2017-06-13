@@ -1,8 +1,8 @@
 package postas.requerimientos
 
-import participantes.Participante
+import participantes.Vikingo
 
 case class PesoMinimo(peso: Int) extends Requerimiento{
-  def esCumplidoPor(participante: Participante): Boolean =
-    participante.cuantoPuedeCargar > peso
+  def esCumplidoPor(vikingo: Vikingo): Boolean =
+    vikingo.cuantoPuedeCargar > peso
 }

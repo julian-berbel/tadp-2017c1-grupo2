@@ -3,8 +3,8 @@ package dragones
 import Item.SistemaDeVuelo
 import participantes.Vikingo
 
-case class FuriaNocturna(peso: Int, danio: Int) extends Dragon(peso) {
-  override val velocidadBasica: Int = super.velocidadBasica * 3
+case class FuriaNocturna(peso: Int, danio: Int) extends Dragon(peso, List.empty) {
+  override def velocidadBasica: Int = super.velocidadBasica * 3
 }
 
 object chimuelo extends FuriaNocturna(???, ???){

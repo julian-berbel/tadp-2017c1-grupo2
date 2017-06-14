@@ -1,8 +1,8 @@
 package postas.requerimientos
 
-import participantes.Vikingo
+import participantes.Participante
 
 case object MonturaRequerida extends Requerimiento{
-  def esCumplidoPor(vikingo: Vikingo): Boolean =
-    vikingo.tieneMontura
+  def esCumplidoPor(participante: Participante): Boolean =
+    participante.tieneMontura
 }

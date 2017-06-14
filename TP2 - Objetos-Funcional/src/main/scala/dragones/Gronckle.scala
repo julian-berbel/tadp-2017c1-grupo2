@@ -2,7 +2,7 @@ package dragones
 import participantes.Vikingo
 
 case class Gronckle(peso: Int, pesoMaximoJinete: Int) extends Dragon(peso) {
-  override val velocidadBasica: Int = super.velocidadBasica / 2
+  override def velocidadBasica: Int = super.velocidadBasica / 2
   
   val danio: Int = peso * 5
 

@@ -6,7 +6,7 @@ import postas.Posta
 
 import scala.util.Try
 
-case class Vikingo(caracteristicas: Caracteristicas){
+case class Vikingo(caracteristicas: Caracteristicas) extends Participante{
 
   val peso: Int = caracteristicas.peso
   val item: Item = caracteristicas.item
@@ -29,11 +29,8 @@ case class Vikingo(caracteristicas: Caracteristicas){
 
   val tieneMontura: Boolean = false
 
-  def puedeCorrer(posta: Posta): Boolean =
-    posta.cumpleRequisitos(this) && Try(correr(posta).hambre).isSuccess
-
-  def correr(posta: Posta): Vikingo =
-    posta.darHambre(this)
+  def correr(posta: Posta): Try[Vikingo] =
+    Try(posta.darHambre(this))
 }
 
 object hipo extends Vikingo(Caracteristicas(peso = ???, item = SistemaDeVuelo, barbarosidad = ???, hambre = 0, velocidad = ???))
@@ -44,8 +41,8 @@ object patan extends Vikingo(Caracteristicas(peso = ???, item = Maza(100), barba
 
 object pataPez extends Vikingo(Caracteristicas(peso = ???, item = Comestible(???), barbarosidad = ???, hambre = 0, velocidad = ???)){
   override def puedeCorrer(posta: Posta): Boolean =
-    super.puedeCorrer(posta) && correr(posta).hambre < 50
+    super.puedeCorrer(posta) && correr(posta).get.hambre < 50
 
-  override def correr(posta: Posta): Vikingo =
-    item(super.correr(posta))
+  override def correr(posta: Posta): Try[Vikingo] =
+    super.correr(posta).map(item(_))
 }

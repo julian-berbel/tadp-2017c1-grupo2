@@ -1,11 +1,11 @@
 package postas
 
-import participantes.Vikingo
+import participantes.Participante
 import requerimientos.MonturaRequerida
 
-case class Carrera(requerimiento: Option[MonturaRequerida], largo: Int) extends Posta{
-  def criterioPosta(vikingo: Vikingo): Int =
-    vikingo.velocidad
+case class Carrera(largo: Int, requerimiento: Option[MonturaRequerida] = None) extends Posta{
+  def criterioPosta(participante: Participante): Int =
+    participante.velocidad
 
   val cuantaHambreDa: Int = largo
 }

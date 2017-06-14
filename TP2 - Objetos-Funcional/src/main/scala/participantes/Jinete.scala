@@ -1,15 +1,31 @@
 package participantes
 
+import Item.Item
 import dragones.Dragon
+import postas.Posta
 
-case class Jinete(vikingo: Vikingo, dragon: Dragon) extends Vikingo(vikingo.caracteristicas){
+import scala.util.Try
+
+case class Jinete(vikingo: Vikingo, dragon: Dragon) extends Participante{
   require(dragon.puedeSerMontadoPor(vikingo))
 
-  override val cuantoPuedeCargar: Int = dragon.cuantoPuedeCargar - peso
+  def tieneUn[T>:Item](_item: T): Boolean =
+    vikingo.tieneUn(_item)
+
+  def deltaHambre(delta: Int): Jinete =
+    copy(vikingo = vikingo.deltaHambre(delta))
+
+  def correr(posta: Posta): Try[Jinete] =
+    Try(deltaHambre(5))
+
+  val hambre = vikingo.hambre
+  val barbarosidad = vikingo.barbarosidad
+
+  override val cuantoPuedeCargar: Int = dragon.cuantoPuedeCargar - vikingo.peso
   
-  override val danio: Int = super.danio + dragon.danio
+  override val danio: Int = vikingo.danio + dragon.danio
   
-  override val velocidad: Int = dragon.velocidad - peso
+  override val velocidad: Int = dragon.velocidad - vikingo.peso
 
   override val tieneMontura: Boolean = true
 }

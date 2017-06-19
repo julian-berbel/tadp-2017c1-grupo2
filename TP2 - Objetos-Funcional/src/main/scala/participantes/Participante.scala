@@ -1,6 +1,7 @@
 package participantes
 
 import Item.Item
+import dragones.Dragon
 import postas.Posta
 
 import scala.util.Try
@@ -26,4 +27,8 @@ trait Participante{
   val tieneMontura: Boolean
 
   def deltaHambre(delta: Int): Participante
+
+  val _dragon: Option[Dragon]
+
+  val vikingo: Vikingo
 }

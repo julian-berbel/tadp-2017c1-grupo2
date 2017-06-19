@@ -13,6 +13,8 @@ case class Vikingo(caracteristicas: Caracteristicas) extends Participante{
   val barbarosidad: Int = caracteristicas.barbarosidad
   val hambre: Int = caracteristicas.hambre
   val velocidad: Int = caracteristicas.velocidad
+  val _dragon: Option[Dragon] = None
+  val vikingo = this
 
   def tieneUn[T>:Item](_item: T): Boolean = item == _item
 
@@ -23,7 +25,7 @@ case class Vikingo(caracteristicas: Caracteristicas) extends Participante{
   def deltaHambre(delta: Int): Vikingo =
     copy(caracteristicas = caracteristicas.deltaHambre(delta))
 
-  def montar(unDragon: Dragon): Try[Jinete] = Try(Jinete(this, unDragon))
+  def montar(unDragon: Dragon): Option[Jinete] = Try(Jinete(this, Some(unDragon))).toOption
 
   val cuantoPuedeCargar: Int = peso / 2 + barbarosidad * 2
 

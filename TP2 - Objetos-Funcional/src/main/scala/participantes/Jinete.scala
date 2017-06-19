@@ -6,7 +6,8 @@ import postas.Posta
 
 import scala.util.Try
 
-case class Jinete(vikingo: Vikingo, dragon: Dragon) extends Participante{
+case class Jinete(vikingo: Vikingo, _dragon: Some[Dragon]) extends Participante{
+  val dragon: Dragon = _dragon.get
   require(dragon.puedeSerMontadoPor(vikingo))
 
   def tieneUn[T>:Item](_item: T): Boolean =

@@ -2,7 +2,7 @@ package postas.requerimientos
 
 import participantes.Participante
 
-case object MonturaRequerida extends Requerimiento{
+case class MonturaRequerida() extends Requerimiento{
   def esCumplidoPor(participante: Participante): Boolean =
     participante.tieneMontura
 }

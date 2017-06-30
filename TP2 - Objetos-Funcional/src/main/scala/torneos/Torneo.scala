@@ -9,13 +9,15 @@ trait Estado[T <: Inscripto]{
 }
 
 case class Ganador[T <: Inscripto](participante: T) extends Estado[T]{
-  val ganador =
+  val ganador: (List[T] => Option[T]) => Option[T] = { _ =>
     Some(participante)
+  }
 }
 
 case class TodosPerdedores[T <: Inscripto]() extends Estado[T]{
-  val ganador =
+  val ganador: (List[T] => Option[T]) => Option[T] = { _ =>
     None
+  }
 }
 
 case class VariosCompetidores[T <: Inscripto](ganadores: List[T]) extends Estado[T]{

@@ -9,5 +9,5 @@ case class FuriaNocturna(peso: Int, danio: Int) extends Dragon(peso, List.empty)
 
 object chimuelo extends FuriaNocturna(???, ???){
   override def puedeSerMontadoPor(unVikingo: Vikingo): Boolean =
-    unVikingo.tieneUn(SistemaDeVuelo) && super.puedeSerMontadoPor(unVikingo)
+    unVikingo.tieneUn[SistemaDeVuelo] && super.puedeSerMontadoPor(unVikingo)
 }

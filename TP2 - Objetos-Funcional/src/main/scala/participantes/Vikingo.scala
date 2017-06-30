@@ -16,7 +16,7 @@ case class Vikingo(caracteristicas: Caracteristicas) extends Participante with I
   val _dragon: Option[Dragon] = None
   val vikingo: Vikingo = this
 
-  def tieneUn[T<:Item](_item: T): Boolean = item == _item
+  def tieneUn[T<:Item]: Boolean = item.isInstanceOf[T]
 
   def puedeCargar: Int = peso / 2 + barbarosidad
 
@@ -38,7 +38,7 @@ case class Vikingo(caracteristicas: Caracteristicas) extends Participante with I
     List(this)
 }
 
-object hipo extends Vikingo(Caracteristicas(peso = ???, item = SistemaDeVuelo, barbarosidad = ???, hambre = 0, velocidad = ???))
+object hipo extends Vikingo(Caracteristicas(peso = ???, item = SistemaDeVuelo(), barbarosidad = ???, hambre = 0, velocidad = ???))
 
 object astrid extends Vikingo(Caracteristicas(peso = ???, item = Hacha(30), barbarosidad = ???, hambre = 0, velocidad = ???))
 

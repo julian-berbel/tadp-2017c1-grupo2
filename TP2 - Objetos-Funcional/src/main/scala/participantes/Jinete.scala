@@ -10,8 +10,8 @@ case class Jinete(vikingo: Vikingo, _dragon: Some[Dragon]) extends Participante{
   val dragon: Dragon = _dragon.get
   require(dragon.puedeSerMontadoPor(vikingo))
 
-  def tieneUn[T<:Item](_item: T): Boolean =
-    vikingo.tieneUn(_item)
+  def tieneUn[T<:Item]: Boolean =
+    vikingo.tieneUn[T]
 
   def deltaHambre(delta: Int): Jinete =
     copy(vikingo = vikingo.deltaHambre(delta))

@@ -17,5 +17,5 @@ package object Item{
     override def apply(vikingo: Vikingo): Vikingo = vikingo.deltaHambre(-hambreReducida)
   }
   
-  case object SistemaDeVuelo extends Item
+  case class SistemaDeVuelo() extends Item
 }

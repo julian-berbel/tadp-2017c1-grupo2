@@ -6,7 +6,7 @@ import postas.Posta
 
 import scala.util.Try
 
-case class Vikingo(caracteristicas: Caracteristicas) extends Participante{
+case class Vikingo(caracteristicas: Caracteristicas) extends Participante with Inscripto{
 
   val peso: Int = caracteristicas.peso
   val item: Item = caracteristicas.item
@@ -14,9 +14,9 @@ case class Vikingo(caracteristicas: Caracteristicas) extends Participante{
   val hambre: Int = caracteristicas.hambre
   val velocidad: Int = caracteristicas.velocidad
   val _dragon: Option[Dragon] = None
-  val vikingo = this
+  val vikingo: Vikingo = this
 
-  def tieneUn[T>:Item](_item: T): Boolean = item == _item
+  def tieneUn[T<:Item](_item: T): Boolean = item == _item
 
   def puedeCargar: Int = peso / 2 + barbarosidad
 
@@ -33,6 +33,9 @@ case class Vikingo(caracteristicas: Caracteristicas) extends Participante{
 
   def correr(posta: Posta): Try[Vikingo] =
     Try(posta.darHambre(this))
+
+  override def prepararse: List[Vikingo] =
+    List(this)
 }
 
 object hipo extends Vikingo(Caracteristicas(peso = ???, item = SistemaDeVuelo, barbarosidad = ???, hambre = 0, velocidad = ???))

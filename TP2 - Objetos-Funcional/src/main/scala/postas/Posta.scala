@@ -11,8 +11,8 @@ trait Posta {
   def correr(participantes: List[Participante]): List[Participante] =
     participantes.filter(_.puedeCorrer(this)).sortBy(criterioPosta).map(_.correr(this).get)
 
-  def competir(vikingos: List[Vikingo], dragones: List[Dragon]): List[Vikingo] =
-    correr(emparejar(vikingos, dragones)).map(_.vikingo)
+  def competir(participantes: List[Vikingo], dragones: List[Dragon]): List[Vikingo] =
+    correr(emparejar(participantes, dragones)).map(_.vikingo)
 
   def criterioPosta(participante: Participante): Int
 

@@ -9,7 +9,7 @@ import scala.util.Try
 trait Participante{
   val barbarosidad: Int
 
-  def tieneUn[T>:Item](_item: T): Boolean
+  def tieneUn[T<:Item](_item: T): Boolean
 
   val cuantoPuedeCargar: Int
 

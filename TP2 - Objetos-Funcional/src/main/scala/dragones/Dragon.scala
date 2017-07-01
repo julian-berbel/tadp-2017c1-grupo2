@@ -1,9 +1,9 @@
 package dragones
 
-import participantes.Vikingo
+import participantes.Vikingo._
 import postas.requerimientos.Requerimiento
 
-abstract class Dragon(peso: Int, requerimientos: List[Requerimiento] = List.empty) {
+abstract class Dragon(peso: Int, requerimientos: List[Requerimiento]) {
   def velocidadBasica: Int = 60
 
   val velocidad: Int = velocidadBasica - peso

@@ -1,13 +1,10 @@
 package dragones
 
 import Item.SistemaDeVuelo
-import participantes.Vikingo
+import postas.requerimientos.{ItemRequerido, Requerimiento}
 
-case class FuriaNocturna(peso: Int, danio: Int) extends Dragon(peso, List.empty) {
+case class FuriaNocturna(peso: Int, danio: Int, requerimientos: List[Requerimiento] = List.empty) extends Dragon(peso, requerimientos) {
   override def velocidadBasica: Int = super.velocidadBasica * 3
 }
 
-object chimuelo extends FuriaNocturna(???, ???){
-  override def puedeSerMontadoPor(unVikingo: Vikingo): Boolean =
-    unVikingo.tieneUn[SistemaDeVuelo] && super.puedeSerMontadoPor(unVikingo)
-}
+object chimuelo extends FuriaNocturna(50, 20, List(ItemRequerido[SistemaDeVuelo]()))

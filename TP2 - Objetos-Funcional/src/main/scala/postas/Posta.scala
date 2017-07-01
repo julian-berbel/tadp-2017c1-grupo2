@@ -1,7 +1,8 @@
 package postas
 
 import dragones.Dragon
-import participantes.{Participante, Vikingo}
+import participantes.Vikingo.Vikingo
+import participantes.{Jinete, Participante}
 import requerimientos._
 
 trait Posta {
@@ -9,10 +10,13 @@ trait Posta {
   val cuantaHambreDa: Int
 
   def correr(participantes: List[Participante]): List[Participante] =
-    participantes.filter(_.puedeCorrer(this)).sortBy(criterioPosta).map(_.correr(this).get)
+    participantes.filter(_.puedeCorrer(this)).sortBy(criterioPosta).reverse.map(_.correr(this).get)
 
   def competir(participantes: List[Vikingo], dragones: List[Dragon]): List[Vikingo] =
-    correr(emparejar(participantes, dragones)).map(_.vikingo)
+    correr(emparejar(participantes, dragones)).map{
+        case participante: Vikingo => participante
+        case participante: Jinete => participante.vikingo
+    }
 
   def criterioPosta(participante: Participante): Int
 
@@ -27,6 +31,8 @@ trait Posta {
 
     vikingos.map { vikingo =>
 
+      var dragonElegido: Option[Dragon] = None
+
       val mejorParticipante: Option[Participante] =
         dragones.diff(dragonesYaElegidos).foldLeft(Some(vikingo): Option[Participante]) { (mejorPorAhora, dragon) =>
           val otroParticipante: Option[Participante] = vikingo.montar(dragon)
@@ -34,12 +40,15 @@ trait Posta {
           otroParticipante match {
             case None => mejorPorAhora
             case Some(otro) =>
-              if (criterioPosta(otro) > criterioPosta(mejorPorAhora.get)) otroParticipante
+              if (criterioPosta(otro) > criterioPosta(mejorPorAhora.get)){
+                dragonElegido = Some(dragon)
+                otroParticipante
+              }
               else mejorPorAhora
           }
         }
 
-      mejorParticipante.flatMap(_._dragon).foreach { dragon => dragonesYaElegidos = dragon :: dragonesYaElegidos }
+      dragonElegido.foreach(dragon => dragonesYaElegidos = dragon :: dragonesYaElegidos)
 
       mejorParticipante.get
     }

@@ -1,7 +1,8 @@
 package torneos
 
 import dragones.Dragon
-import participantes.{Equipo, Inscripto, Vikingo}
+import participantes.Vikingo.Vikingo
+import participantes.{Equipo, Inscripto}
 import postas.Posta
 
 trait Estado[T <: Inscripto]{

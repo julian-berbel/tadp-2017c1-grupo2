@@ -1,4 +1,4 @@
-import participantes.Vikingo
+import participantes.Vikingo._
 
 package object Item{
   trait Item{
@@ -7,11 +7,11 @@ package object Item{
     def apply(vikingo: Vikingo): Vikingo = vikingo
   }
   
-  case class Arma(override val danio: Int) extends Item
-  
-  def Hacha(danio: Int) = Arma(danio)
-  
-  def Maza(danio: Int) = Arma(danio)
+  class Arma(override val danio: Int) extends Item
+
+  case class Hacha(override val danio: Int) extends Arma(danio)
+
+  case class Maza(override val danio: Int) extends Arma(danio)
   
   case class Comestible(hambreReducida: Int) extends Item{
     override def apply(vikingo: Vikingo): Vikingo = vikingo.deltaHambre(-hambreReducida)

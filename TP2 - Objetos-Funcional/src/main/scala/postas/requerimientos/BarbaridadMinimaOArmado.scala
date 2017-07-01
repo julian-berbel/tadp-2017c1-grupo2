@@ -5,5 +5,5 @@ import participantes.Participante
 
 case class BarbaridadMinimaOArmado(barbaridad: Int) extends Requerimiento{
   def esCumplidoPor(participante: Participante): Boolean =
-    BarbaridadMinima(barbaridad).esCumplidoPor(participante) || participante.tieneUn[Arma]
+    BarbaridadMinima(barbaridad).esCumplidoPor(participante) || ItemRequerido[Arma]().esCumplidoPor(participante)
 }

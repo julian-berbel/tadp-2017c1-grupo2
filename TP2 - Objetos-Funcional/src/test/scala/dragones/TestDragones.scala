@@ -81,5 +81,4 @@ class TestDragones extends FlatSpec {
   it should "not able to be ridden by a rider without said item" in {
     assert(patan.montar(chimuelo).isEmpty)
   }
-
 }

@@ -10,7 +10,7 @@ trait Posta {
   val cuantaHambreDa: Int
 
   def correr(participantes: List[Participante]): List[Participante] =
-    participantes.filter(_.puedeCorrer(this)).sortBy(criterioPosta).reverse.map(_.correr(this).get)
+    participantes.filter(_.puedeCorrer(this)).sortBy(evaluar).reverse.map(_.correr(this).get)
 
   def competir(participantes: List[Vikingo], dragones: List[Dragon]): List[Vikingo] =
     correr(emparejar(participantes, dragones)).map{
@@ -18,7 +18,7 @@ trait Posta {
         case participante: Jinete => participante.vikingo
     }
 
-  def criterioPosta(participante: Participante): Int
+  def evaluar(participante: Participante): Int
 
   def cumpleRequisitos(participante: Participante): Boolean =
     requerimiento.forall(_.esCumplidoPor(participante))
@@ -40,7 +40,7 @@ trait Posta {
           otroParticipante match {
             case None => mejorPorAhora
             case Some(otro) =>
-              if (criterioPosta(otro) > criterioPosta(mejorPorAhora.get)){
+              if (otro.esMejorQue(mejorPorAhora.get)(this)){
                 dragonElegido = Some(dragon)
                 otroParticipante
               }

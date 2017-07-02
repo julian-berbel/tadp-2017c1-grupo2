@@ -26,4 +26,7 @@ trait Participante{
   val tieneMontura: Boolean
 
   def deltaHambre(delta: Int): Participante
+
+  def esMejorQue(otroParticipante: Participante)(posta: Posta): Boolean =
+    posta.evaluar(this) > posta.evaluar(otroParticipante)
 }

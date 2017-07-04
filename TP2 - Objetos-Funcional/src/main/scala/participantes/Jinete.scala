@@ -1,6 +1,6 @@
 package participantes
 
-import Item.TipoDeItem
+import items.TipoDeItem
 import dragones.Dragon
 import postas.Posta
 import Vikingo._

@@ -1,6 +1,6 @@
 package postas.requerimientos
 
-import Item.TipoDeItem
+import items.TipoDeItem
 import participantes.Participante
 
 case class ItemRequerido(tipoDeItem: TipoDeItem) extends Requerimiento{

@@ -1,6 +1,6 @@
 package participantes
 
-import Item._
+import items._
 import dragones.Dragon
 import postas.Posta
 

@@ -1,6 +1,6 @@
 import participantes.Vikingo._
 
-package object Item{
+package object items{
   class Item(val tipo: TipoDeItem){
     def danio = 0
 

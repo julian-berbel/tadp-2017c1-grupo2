@@ -1,6 +1,6 @@
 package postas.requerimientos
 
-import Item.tipoArma
+import items.tipoArma
 import participantes.Participante
 
 case class BarbaridadMinimaOArmado(barbaridad: Int) extends Requerimiento{

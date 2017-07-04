@@ -1,6 +1,6 @@
 package participantes
 
-import Item.Item
+import items.Item
 
 case class Caracteristicas(peso: Int, item: Item, barbarosidad: Int, hambre: Int, velocidad: Int) {
   require(hambre >= 0 && hambre < 100, "Me quedé con hambre")

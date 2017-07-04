@@ -10,7 +10,7 @@ trait Posta {
   val cuantaHambreDa: Int
 
   def correr(participantes: List[Participante]): List[Participante] =
-    participantes.filter(_.puedeCorrer(this)).sortBy(evaluar).reverse.map(_.correr(this).get)
+    participantes.sortBy(evaluar).reverse.map(_.correr(this).get)
 
   def competir(participantes: List[Vikingo], dragones: List[Dragon]): List[Vikingo] =
     correr(emparejar(participantes, dragones)).map{
@@ -39,7 +39,7 @@ trait Posta {
         case _ =>
       }
 
-      mejorParticipante.get
-    }
+      mejorParticipante
+    }.filter(_.isDefined).map(_.get)
   }
 }

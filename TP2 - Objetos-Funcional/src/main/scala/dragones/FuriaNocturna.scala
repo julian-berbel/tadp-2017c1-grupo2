@@ -1,6 +1,6 @@
 package dragones
 
-import Item.tipoSistemaDeVuelo
+import items.tipoSistemaDeVuelo
 import postas.requerimientos.{ItemRequerido, Requerimiento}
 
 case class FuriaNocturna(peso: Int, danio: Int, requerimientos: List[Requerimiento] = List.empty) extends Dragon(peso, requerimientos) {

@@ -1,6 +1,6 @@
 package participantes
 
-import Item._
+import items._
 import org.scalatest._
 import Vikingo._
 

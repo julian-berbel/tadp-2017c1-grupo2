@@ -1,6 +1,6 @@
 package participantes
 
-import Item.TipoDeItem
+import items.TipoDeItem
 import postas.Posta
 
 import scala.util.Try

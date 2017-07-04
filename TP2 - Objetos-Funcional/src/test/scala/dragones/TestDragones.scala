@@ -38,7 +38,7 @@ class TestDragones extends FlatSpec {
   }
 
   "A Nadder" should "not be able to be ridden by a rider with higher damage than it" in {
-    val unVikingoFuerte: Vikingo = Vikingo(Caracteristicas(1,Maza(200),1,1,1))
+    val unVikingoFuerte: Vikingo = Vikingo("", Caracteristicas(1,Maza(200),1,1,1))
     assert(unVikingoFuerte.montar(nadder).isEmpty)
   }
 

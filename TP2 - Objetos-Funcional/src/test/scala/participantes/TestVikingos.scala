@@ -7,19 +7,19 @@ import Vikingo._
 class TestVikingos extends FlatSpec {
 
   "Hipo" should "have a flight system" in {
-    assert(hipo.tieneUn[SistemaDeVuelo])
+    assert(hipo.tieneUn(tipoSistemaDeVuelo))
   }
 
-  "Astrid" should "have an axe" in {
-    assert(astrid.tieneUn[Hacha])
+  "Astrid" should "have a weapon" in {
+    assert(astrid.tieneUn(tipoArma))
   }
 
-  "Patan" should "have a mace" in {
-    assert(astrid.tieneUn[Maza])
+  "Patan" should "have a weapon" in {
+    assert(astrid.tieneUn(tipoArma))
   }
 
   "Patapez" should "have food" in {
-    assert(astrid.tieneUn[Comestible])
+    assert(pataPez.tieneUn(tipoComestible))
   }
 
   "A Viking" should "have a damage equal to its barbarity plus the damage of its item" in {

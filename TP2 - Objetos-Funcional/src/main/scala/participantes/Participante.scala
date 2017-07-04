@@ -1,6 +1,6 @@
 package participantes
 
-import Item.Item
+import Item.TipoDeItem
 import postas.Posta
 
 import scala.util.Try
@@ -8,7 +8,7 @@ import scala.util.Try
 trait Participante{
   val barbarosidad: Int
 
-  def tieneUn[T<:Item]: Boolean
+  def tieneUn(tipoDeItem: TipoDeItem): Boolean
 
   val cuantoPuedeCargar: Int
 

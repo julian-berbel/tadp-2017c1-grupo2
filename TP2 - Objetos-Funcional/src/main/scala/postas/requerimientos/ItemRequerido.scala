@@ -1,9 +1,9 @@
 package postas.requerimientos
 
-import Item.Item
+import Item.TipoDeItem
 import participantes.Participante
 
-case class ItemRequerido[T<:Item]() extends Requerimiento{
+case class ItemRequerido(tipoDeItem: TipoDeItem) extends Requerimiento{
   def esCumplidoPor(participante: Participante): Boolean =
-    participante.tieneUn[T]
+    participante.tieneUn(tipoDeItem)
 }

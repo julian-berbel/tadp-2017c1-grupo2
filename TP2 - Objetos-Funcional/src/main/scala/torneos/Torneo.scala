@@ -38,7 +38,7 @@ trait Torneo[T <: Inscripto] {
       postas.foldLeft(VariosCompetidores(participantes): Estado[T]) { (estado, posta) =>
         estado match {
           case VariosCompetidores(sobrevivientes) =>
-            val _sobrevivientes = reagrupar(posta.competir(sobrevivientes.flatMap(_.prepararse), dragonesDisponibles))
+            val _sobrevivientes = reagrupar(posta.competir(sobrevivientes.flatMap(_.prepararse), dragonesDisponibles), participantes)
             _sobrevivientes.length match {
               case 0 => TodosPerdedores()
               case 1 => Ganador(_sobrevivientes.head)
@@ -53,7 +53,7 @@ trait Torneo[T <: Inscripto] {
 
   val criterioGanador: List[T] => Option[T]
 
-  def reagrupar(vikingos: List[Vikingo]): List[T]
+  def reagrupar(sobrevivientes: List[Vikingo], participantesOriginales: List[T]): List[T]
 
   def criterioPasajeDeRonda: List[T] => List[T]
 
@@ -62,26 +62,26 @@ trait Torneo[T <: Inscripto] {
   val dragonesDisponibles: List[Dragon] = dragones
 }
 
-trait ReglasEstandar[T <: Inscripto]{
+trait PasajeDeRondaEstandar[T <: Inscripto]{
   def criterioPasajeDeRonda: (List[T]) => List[T] = {competidores => competidores.take(competidores.length / 2)}
 }
 
-case class TorneoEstandar(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Vikingo] with ReglasEstandar[Vikingo]{
-  val criterioGanador: List[Vikingo] => Option[Vikingo] = {_.headOption}
+trait SinReagrupar{
+  def reagrupar(vikingos: List[Vikingo], originales: List[Vikingo]): List[Vikingo] = vikingos
+}
 
-  def reagrupar(vikingos: List[Vikingo]): List[Vikingo] = vikingos
+case class TorneoEstandar(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Vikingo] with PasajeDeRondaEstandar[Vikingo] with SinReagrupar{
+  val criterioGanador: List[Vikingo] => Option[Vikingo] = {_.headOption}
 }
 
 class TorneoEliminacion(postas: List[Posta], dragones: List[Dragon], cuantosCaen: Int) extends TorneoEstandar(postas, dragones){
   override def criterioPasajeDeRonda: (List[Vikingo]) => List[Vikingo] = {vikingos => vikingos.dropRight(cuantosCaen)}
 }
 
-case class TorneoInverso(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Vikingo]{
+case class TorneoInverso(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Vikingo] with SinReagrupar{
   val criterioGanador: List[Vikingo] => Option[Vikingo] = {_.lastOption}
 
   def criterioPasajeDeRonda: (List[Vikingo]) => List[Vikingo] = {vikingos => vikingos.takeRight(vikingos.length / 2)}
-
-  def reagrupar(vikingos: List[Vikingo]): List[Vikingo] = vikingos
 }
 
 class TorneoConVeto(postas: List[Posta], dragones: List[Dragon], condicionVeto: Dragon => Boolean) extends TorneoEstandar(postas, dragones){
@@ -92,7 +92,7 @@ class TorneoConHandicap(postas: List[Posta], dragones: List[Dragon], condicionVe
   override def ordenDeEleccion(vikingos: List[Vikingo]): List[Vikingo] = vikingos.reverse
 }
 
-case class TorneoPorEquipos(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Equipo] with ReglasEstandar[Equipo]{
+case class TorneoPorEquipos(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Equipo] with PasajeDeRondaEstandar[Equipo]{
   override def competir(equipos: List[Equipo]): Option[Equipo] =
     super.competir(equipos)
 
@@ -100,6 +100,10 @@ case class TorneoPorEquipos(postas: List[Posta], dragones: List[Dragon]) extends
     Some(equipos.maxBy(_.miembros.length))
   }
 
-  def reagrupar(vikingos: List[Vikingo]): List[Equipo] =
-    vikingos.grouped(3).map(Equipo).toList // No dice como reagruparlos
+  def reagrupar(vikingos: List[Vikingo], originales: List[Equipo]): List[Equipo] =
+    originales.map{original =>
+      Equipo(vikingos.filter{vikingo =>
+        original.miembros.map(_.nombre).contains(vikingo.nombre)
+      })
+    }.filter(_.leQuedanMiembros)
 }

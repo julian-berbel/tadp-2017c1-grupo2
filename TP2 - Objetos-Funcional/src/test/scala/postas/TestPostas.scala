@@ -12,8 +12,8 @@ class TestPostas extends FlatSpec {
     assert(!hipo.puedeCorrer(Carrera(150)))
   }
 
-  "A Fishing Relay" should "be won by the (now hungry) viking who can carry the most" in {
-    assertResult(pataPez)(Pesca().competir(List(astrid, patan, hipo, pataPez), List.empty).head)
+  "A Fishing Relay" should "be won by the viking who can carry the most" in {
+    assertResult("PataPez")(Pesca().competir(List(astrid, patan, hipo, pataPez), List.empty).head.nombre)
   }
 
   it should "raise a viking's hunger by 5" in {
@@ -28,8 +28,8 @@ class TestPostas extends FlatSpec {
     assert(hipo.puedeCorrer(Pesca(Some(PesoMinimo(1)))))
   }
 
-  "A Combat Relay" should "be won by the (now hungry) viking with the highest damage" in {
-    assertResult(patan.deltaHambre(10))(Combate(0).competir(List(astrid, patan, hipo, pataPez), List.empty).head)
+  "A Combat Relay" should "be won by the viking with the highest damage" in {
+    assertResult("Patan")(Combate(0).competir(List(astrid, patan, hipo, pataPez), List.empty).head.nombre)
   }
 
   it should "raise a viking's hunger by 10" in {
@@ -45,12 +45,12 @@ class TestPostas extends FlatSpec {
   }
 
   it should "let a viking who has a barbarity lower than de minimum but has a weapon participate" in {
-    val vikingoArmado: Vikingo = Vikingo(Caracteristicas(0,new Arma(10),0,0,0))
+    val vikingoArmado: Vikingo = Vikingo("", Caracteristicas(0,new Arma(10),0,0,0))
     assert(vikingoArmado.puedeCorrer(Combate(1)))
   }
 
-  "A Race Relay" should "be won by the (now hungry) viking with the highest speed" in {
-    assertResult(pataPez.deltaHambre(4))(Carrera(15).competir(List(astrid, patan, hipo, pataPez), List.empty).head)
+  "A Race Relay" should "be won by the viking with the highest speed" in {
+    assertResult("PataPez")(Carrera(15).competir(List(astrid, patan, hipo, pataPez), List.empty).head.nombre)
   }
 
   it should "raise a viking's hunger by 1 for every unit of length" in {

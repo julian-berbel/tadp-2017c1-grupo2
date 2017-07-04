@@ -7,15 +7,15 @@ import postas.Posta
 import scala.util.Try
 
 package object Vikingo{
-  case class Vikingo(caracteristicas: Caracteristicas) extends Participante with Inscripto{
+  case class Vikingo(nombre: String, caracteristicas: Caracteristicas) extends Participante with Inscripto{
     val peso: Int = caracteristicas.peso
     val item: Item = caracteristicas.item
     val barbarosidad: Int = caracteristicas.barbarosidad
     val hambre: Int = caracteristicas.hambre
     val velocidad: Int = caracteristicas.velocidad
-    val _dragon: Option[Dragon] = None
 
-    def tieneUn[T<:Item]: Boolean = item.isInstanceOf[T] //TODO broken
+    def tieneUn(tipoDeItem: TipoDeItem): Boolean =
+      item.tipo == tipoDeItem
 
     def puedeCargar: Int = peso / 2 + barbarosidad
 
@@ -35,15 +35,32 @@ package object Vikingo{
 
     override def prepararse: List[Vikingo] =
       List(this)
+
+    def mejorMontura(dragones: List[Dragon], posta: Posta): Option[Participante] = {
+      dragones.foldLeft(Some(this).filter(_.puedeCorrer(posta)): Option[Participante]) { (mejorPorAhora, dragon) =>
+        val otroParticipante: Option[Participante] = this.montar(dragon).filter(_.puedeCorrer(posta))
+
+        (mejorPorAhora, otroParticipante) match{
+          case (None, _) => otroParticipante
+          case (_, None) => mejorPorAhora
+          case (Some(mejor), Some(otro)) =>
+            if (otro.esMejorQue(mejor)(posta)){
+              otroParticipante
+            }
+            else mejorPorAhora
+        }
+      }
+    }
+
   }
 
-  object hipo extends Vikingo(Caracteristicas(peso = 1, item = SistemaDeVuelo(), barbarosidad = 2, hambre = 0, velocidad = 3))
+  object hipo extends Vikingo("Hipo", Caracteristicas(peso = 1, item = SistemaDeVuelo(), barbarosidad = 2, hambre = 0, velocidad = 3))
 
-  object astrid extends Vikingo(Caracteristicas(peso = 4, item = Hacha(30), barbarosidad = 5, hambre = 0, velocidad = 6))
+  object astrid extends Vikingo("Astrid", Caracteristicas(peso = 4, item = Hacha(30), barbarosidad = 5, hambre = 0, velocidad = 6))
 
-  object patan extends Vikingo(Caracteristicas(peso = 7, item = Maza(100), barbarosidad = 8, hambre = 0, velocidad = 9))
+  object patan extends Vikingo("Patan", Caracteristicas(peso = 7, item = Maza(100), barbarosidad = 8, hambre = 0, velocidad = 9))
 
-  object pataPez extends Vikingo(Caracteristicas(peso = 10, item = Comestible(11), barbarosidad = 12, hambre = 0, velocidad = 13)){
+  object pataPez extends Vikingo("PataPez", Caracteristicas(peso = 10, item = Comestible(11), barbarosidad = 12, hambre = 0, velocidad = 13)){
     override def puedeCorrer(posta: Posta): Boolean =
       super.puedeCorrer(posta) && correr(posta).get.hambre < 50
 

@@ -31,24 +31,13 @@ trait Posta {
 
     vikingos.map { vikingo =>
 
-      var dragonElegido: Option[Dragon] = None
-
       val mejorParticipante: Option[Participante] =
-        dragones.diff(dragonesYaElegidos).foldLeft(Some(vikingo): Option[Participante]) { (mejorPorAhora, dragon) =>
-          val otroParticipante: Option[Participante] = vikingo.montar(dragon)
+        vikingo.mejorMontura(dragones.diff(dragonesYaElegidos), this)
 
-          otroParticipante match {
-            case None => mejorPorAhora
-            case Some(otro) =>
-              if (otro.esMejorQue(mejorPorAhora.get)(this)){
-                dragonElegido = Some(dragon)
-                otroParticipante
-              }
-              else mejorPorAhora
-          }
-        }
-
-      dragonElegido.foreach(dragon => dragonesYaElegidos = dragon :: dragonesYaElegidos)
+      mejorParticipante.foreach{
+        case Jinete(_, dragon) => dragonesYaElegidos = dragon :: dragonesYaElegidos
+        case _ =>
+      }
 
       mejorParticipante.get
     }

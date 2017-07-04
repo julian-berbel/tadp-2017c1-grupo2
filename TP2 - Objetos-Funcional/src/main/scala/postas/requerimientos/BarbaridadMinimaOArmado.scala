@@ -1,9 +1,9 @@
 package postas.requerimientos
 
-import Item.Arma
+import Item.tipoArma
 import participantes.Participante
 
 case class BarbaridadMinimaOArmado(barbaridad: Int) extends Requerimiento{
   def esCumplidoPor(participante: Participante): Boolean =
-    BarbaridadMinima(barbaridad).esCumplidoPor(participante) || ItemRequerido[Arma]().esCumplidoPor(participante)
+    BarbaridadMinima(barbaridad).esCumplidoPor(participante) || ItemRequerido(tipoArma).esCumplidoPor(participante)
 }

@@ -17,11 +17,12 @@ trait Torneo[T <: Inscripto] {
       postas.foldLeft(VariosCompetidores(participantes): Estado[T]) { (estado, posta) =>
         estado match {
           case VariosCompetidores(sobrevivientes) =>
-            val _sobrevivientes = reagrupar(posta.competir(ordenDeEleccion(sobrevivientes.flatMap(_.prepararse)), dragonesDisponibles), participantes)
-            _sobrevivientes.length match {
+            val _sobrevivientes = posta.competir(ordenDeEleccion(sobrevivientes.flatMap(_.prepararse)), dragonesDisponibles)
+            val reagrupados = reagrupar(_sobrevivientes, participantes)
+            reagrupados.length match {
               case 0 => TodosPerdedores()
-              case 1 => Ganador(_sobrevivientes.head)
-              case _ => VariosCompetidores(criterioPasajeDeRonda(_sobrevivientes))
+              case 1 => Ganador(reagrupados.head)
+              case _ => VariosCompetidores(reagrupar(criterioPasajeDeRonda(_sobrevivientes), participantes))
             }
           case _estado => _estado
         }
@@ -34,7 +35,7 @@ trait Torneo[T <: Inscripto] {
 
   def reagrupar(sobrevivientes: List[Vikingo], participantesOriginales: List[T]): List[T]
 
-  def criterioPasajeDeRonda: List[T] => List[T]
+  def criterioPasajeDeRonda: List[Vikingo] => List[Vikingo]
 
   def ordenDeEleccion(vikingos: List[Vikingo]): List[Vikingo] = vikingos
 

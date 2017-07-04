@@ -5,7 +5,7 @@ import participantes.Vikingo.Vikingo
 import participantes.Equipo
 import postas.Posta
 
-case class TorneoPorEquipos(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Equipo] with PasajeDeRondaEstandar[Equipo]{
+case class TorneoPorEquipos(postas: List[Posta], dragones: List[Dragon]) extends Torneo[Equipo] with PasajeDeRondaEstandar{
   override def competir(equipos: List[Equipo]): Option[Equipo] =
     super.competir(equipos)
 

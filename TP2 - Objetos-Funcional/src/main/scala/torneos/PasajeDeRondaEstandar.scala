@@ -1,7 +1,7 @@
 package torneos
 
-import participantes.Inscripto
+import participantes.Vikingo.Vikingo
 
-trait PasajeDeRondaEstandar[T <: Inscripto]{
-  def criterioPasajeDeRonda: (List[T]) => List[T] = {competidores => competidores.take(competidores.length / 2)}
+trait PasajeDeRondaEstandar{
+  def criterioPasajeDeRonda: (List[Vikingo]) => List[Vikingo] = {competidores => competidores.take(competidores.length / 2)}
 }

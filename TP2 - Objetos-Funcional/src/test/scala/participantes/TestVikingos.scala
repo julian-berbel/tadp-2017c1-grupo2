@@ -3,8 +3,17 @@ package participantes
 import items._
 import org.scalatest._
 import Vikingo._
+import dragones._
+import postas.{Carrera, Combate, Pesca}
+import postas.requerimientos.BarbaridadMinima
 
 class TestVikingos extends FlatSpec {
+
+  val nadder: Nadder = Nadder(10)
+  val furiaNocturna: FuriaNocturna = FuriaNocturna(15,20)
+  val gronckle: Gronckle = Gronckle(10, 30)
+  val dragonConBarbaridadMinimaRequerida: FuriaNocturna = FuriaNocturna(150, 20, List(BarbaridadMinima(5)))
+  val dragones: List[Dragon] = List(nadder, furiaNocturna, gronckle, chimuelo, dragonConBarbaridadMinimaRequerida)
 
   "Hipo" should "have a flight system" in {
     assert(hipo.tieneUn(tipoSistemaDeVuelo))
@@ -33,4 +42,25 @@ class TestVikingos extends FlatSpec {
   it should "have a speed specific to itself" in {
     assertResult(6)(astrid.velocidad)
   }
+
+  it should "choose the way for it to participate that will maximize its carrying weight in a fishing relay" in {
+    assertResult(Some(Jinete(hipo, chimuelo)))(hipo.mejorMontura(dragones, Pesca()))
+  }
+
+  it should "choose the way for it to participate that will maximize its damage in a combat relay" in {
+    assertResult(Some(Jinete(hipo, nadder)))(hipo.mejorMontura(dragones, Combate(1)))
+  }
+
+  it should "choose the way for it to participate that will maximize its speed in a race relay" in {
+    assertResult(Some(Jinete(hipo, furiaNocturna)))(hipo.mejorMontura(dragones, Carrera(1)))
+  }
+
+  it should "choose to participate by himself if running with a dragon will worsen his score" in {
+    assertResult(Some(pataPez))(pataPez.mejorMontura(dragones, Pesca()))
+  }
+
+  it should "not be able to participate if he doesn't meet the criteria" in {
+    assertResult(None)(hipo.mejorMontura(dragones, Combate(1000)))
+  }
+
 }

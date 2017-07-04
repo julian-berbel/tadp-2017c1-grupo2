@@ -19,8 +19,8 @@ case class Jinete(vikingo: Vikingo, dragon: Dragon) extends Participante{
   def correr(posta: Posta): Try[Jinete] =
     Try(deltaHambre(5))
 
-  val hambre = vikingo.hambre
-  val barbarosidad = vikingo.barbarosidad
+  val hambre: Int = vikingo.hambre
+  val barbarosidad: Int = vikingo.barbarosidad
 
   override val cuantoPuedeCargar: Int = dragon.cuantoPuedeCargar - vikingo.peso
   

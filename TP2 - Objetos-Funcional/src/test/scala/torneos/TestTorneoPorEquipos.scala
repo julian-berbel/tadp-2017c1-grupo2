@@ -23,6 +23,6 @@ class TestTorneoPorEquipos extends FlatSpec {
   val torneo = TorneoPorEquipos(List(Pesca()), List.empty)
 
   "A Team Tournament" should "choose the first team (as is at the moment of winning) as its winner" in {
-    assertResult(List("Vikingo 2", "Vikingo 1"))(torneo.competir(equipos).get.miembros.map(_.nombre))
+    assertResult(List("Vikingo 1", "Vikingo 2"))(torneo.competir(equipos).get.miembros.map(_.nombre))
   }
 }

@@ -16,7 +16,7 @@ class TestPosta extends FlatSpec {
   }
 
   it should "only assign a dragon once when zipping dragons and vikings" in {
-    assertResult(List(Jinete(hipo, chimuelo), hipo))(Pesca().emparejar(List(hipo, hipo), List(chimuelo)))
+    assertResult(List(hipo, Jinete(hipo, chimuelo)))(Pesca().emparejar(List(hipo, hipo), List(chimuelo)))
   }
 
 }

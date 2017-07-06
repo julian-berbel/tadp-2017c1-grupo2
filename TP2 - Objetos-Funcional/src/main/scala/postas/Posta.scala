@@ -27,19 +27,19 @@ trait Posta {
     vikingo.deltaHambre(this.cuantaHambreDa)
 
   def emparejar(vikingos: List[Vikingo], dragones: List[Dragon]): List[Participante] = {
-    var dragonesYaElegidos: List[Dragon] = List.empty
-
-    vikingos.map { vikingo =>
+    vikingos.foldLeft((List.empty, List.empty): List[Option[Participante]] Tuple2 List[Dragon]){ (tuplaParticipantesDragones, vikingo) =>
+      val participantes = tuplaParticipantesDragones._1
+      val dragonesYaElegidos = tuplaParticipantesDragones._2
 
       val mejorParticipante: Option[Participante] =
         vikingo.mejorMontura(dragones.diff(dragonesYaElegidos), this)
 
-      mejorParticipante.foreach{
-        case Jinete(_, dragon) => dragonesYaElegidos = dragon :: dragonesYaElegidos
-        case _ =>
-      }
+      val _dragones = mejorParticipante.map{
+        case Jinete(_, dragon) => dragon :: dragonesYaElegidos
+        case _ => dragonesYaElegidos
+      }.getOrElse(dragonesYaElegidos)
 
-      mejorParticipante
-    }.filter(_.isDefined).map(_.get)
+      (mejorParticipante::participantes, _dragones)
+    }._1.filter(_.isDefined).map(_.get)
   }
 }

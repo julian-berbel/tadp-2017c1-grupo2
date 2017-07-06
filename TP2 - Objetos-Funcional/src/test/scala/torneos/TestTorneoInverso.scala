@@ -11,7 +11,7 @@ class TestTorneoInverso extends FlatSpec {
   val torneo = TorneoInverso(List.empty, List.empty)
 
   "An Inverse Tournament" should "choose the last participant as its winner" in {
-    assertResult("PataPez")(torneo.criterioGanador(vikingos).get.nombre)
+    assertResult("PataPez")(torneo.criterioGanador(vikingos).nombre)
   }
 
   it should "eliminate the top half of the participants each round" in {

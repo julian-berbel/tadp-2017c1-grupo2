@@ -11,7 +11,7 @@ trait Torneo[T <: Inscripto] {
 
   val dragones: List[Dragon]
 
-  def competir(participantes: List[T]): Option[T] = {
+  def competir(participantes: List[T]): Estado[T] = {
 
     val resultado =
       postas.foldLeft(VariosCompetidores(participantes): Estado[T]) { (estado, posta) =>
@@ -31,7 +31,7 @@ trait Torneo[T <: Inscripto] {
     resultado.ganador(criterioGanador)
   }
 
-  val criterioGanador: List[T] => Option[T]
+  val criterioGanador: List[T] => T
 
   def reagrupar(sobrevivientes: List[Vikingo], participantesOriginales: List[T]): List[T]
 

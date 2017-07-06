@@ -5,6 +5,7 @@ import org.scalatest._
 import participantes.Vikingo._
 import postas.{Carrera, Combate, Pesca}
 import postas.requerimientos.BarbaridadMinima
+import torneos.estados.TodosPerdedores
 
 class TestTorneo extends FlatSpec {
 
@@ -22,7 +23,7 @@ class TestTorneo extends FlatSpec {
   }
 
   it should "be won by nobody if everyone is eliminated" in {
-    assertResult(None)(new TorneoEliminacion(List(Carrera(10), Pesca()), dragones, 5).competir(vikingos))
+    assertResult(TodosPerdedores())(new TorneoEliminacion(List(Carrera(10), Pesca()), dragones, 5).competir(vikingos))
   }
 
 }

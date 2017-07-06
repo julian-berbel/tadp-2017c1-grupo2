@@ -15,17 +15,7 @@ trait Torneo[T <: Inscripto] {
 
     val resultado =
       postas.foldLeft(VariosCompetidores(participantes): Estado[T]) { (estado, posta) =>
-        estado match {
-          case VariosCompetidores(sobrevivientes) =>
-            val _sobrevivientes = posta.competir(ordenDeEleccion(sobrevivientes.flatMap(_.prepararse)), dragonesDisponibles)
-            val reagrupados = reagrupar(_sobrevivientes, participantes)
-            reagrupados.length match {
-              case 0 => TodosPerdedores()
-              case 1 => Ganador(reagrupados.head)
-              case _ => VariosCompetidores(reagrupar(criterioPasajeDeRonda(_sobrevivientes), participantes))
-            }
-          case _estado => _estado
-        }
+        estado.continuar(posta, this, participantes)
       }
 
     resultado.ganador(criterioGanador)

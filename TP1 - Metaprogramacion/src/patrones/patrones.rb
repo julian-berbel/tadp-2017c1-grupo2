@@ -1,3 +1,3 @@
-require_relative "patron_has"
-require_relative "patron_is_a"
-require_relative "patron__"
+require_relative 'patron_has'
+require_relative 'patron_is_a'
+require_relative 'patron__'

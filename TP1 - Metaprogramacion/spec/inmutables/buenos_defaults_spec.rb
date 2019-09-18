@@ -1,46 +1,49 @@
-require 'rspec'
-require_relative '../../src/tp_inmutabilidad'
+require_relative '../tp_inmutabilidad_spec'
 
 describe 'Buenos Defaults' do
+  before do
+    case_class UnaCaseClass do
+      attr_accessor :una_variable, :otra_variable
+    end
+  end
 
-    before do
-        case_class Una_case_class do
-            attr_accessor :una_variable, :otra_variable
-        end
+  let(:un_objeto) { UnaCaseClass(3, 8) }
 
-        @un_objeto = Una_case_class.new(3,8)
+  describe '#to_s' do
+    it 'imprime el nombre de la clase seguido de los valores de sus atributos entre parentesis' do
+      expect(un_objeto.to_s).to eq 'UnaCaseClass(3, 8)'
+    end
+  end
+
+  describe '#hash' do
+    it 'devuelve la sumatoria de los hashes de los atributos + 7' do
+      expect(un_objeto.hash).to eq (3.hash + 8.hash + 7)
+    end
+  end
+
+  describe '#==' do
+    context 'da true para dos objetos de la misma clase y mismos valores de atributos' do
+      let(:otro_objeto_igual) { UnaCaseClass(3, 8) }
+
+      it { expect(un_objeto).to eq otro_objeto_igual }
     end
 
-	describe '#to_s' do
-		it 'imprime el nombre de la clase seguido de los valores de sus atributos entre parentesis' do
-			expect(@un_objeto.to_s).to eq 'Una_case_class(3, 8)'
-		end
-	end
+    context 'da false para dos objetos de la misma clase y distintos valores de atributos' do
+      let(:un_objeto_con_distintos_atributos) { UnaCaseClass(5, 7) }
 
-	describe '#hash' do
-		it 'devuelve la sumatoria de los hashes de los atributos + 7' do
-			expect(@un_objeto.hash).to eq (3.hash + 8.hash + 7)
-		end
-	end
+      it { expect(un_objeto).to_not eq un_objeto_con_distintos_atributos }
+    end
 
-	describe '#==' do
-		it 'da true para dos objetos de la misma clase y mismos valores de atributos' do
-			otro_objeto_igual = Una_case_class.new(3,8)
-			expect(@un_objeto == otro_objeto_igual).to be true
-		end
+    context 'da false para dos objetos distintas clases y mismos valores de atributos' do
+      before do
+        case_class OtraCaseClass do
+          attr_accessor :una_variable, :otra_variable
+        end
+      end
 
-		it 'da false para dos objetos de la misma clase y distintos valores de atributos' do
-			un_objeto_con_distintos_atributos = Una_case_class.new(5,7)
-			expect(@un_objeto == un_objeto_con_distintos_atributos).to be false
-		end
+      let(:un_objeto_con_distinta_clase) { OtraCaseClass(3, 8) }
 
-		it 'da false para dos objetos de la misma clase y mismos valores de atributos' do
-			case_class Otra_clase do
-				attr_accessor :unaVariable, :otraVariable
-			end
-			un_objeto_con_distinta_clase = Otra_clase.new(3,8)
-			expect(@un_objeto == un_objeto_con_distinta_clase).to be false
-		end
-	end
-	
+      it { expect(un_objeto).to_not eq un_objeto_con_distinta_clase }
+    end
+  end
 end

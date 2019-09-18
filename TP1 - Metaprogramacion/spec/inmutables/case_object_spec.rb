@@ -1,5 +1,4 @@
-require 'rspec'
-require_relative '../../src/tp_inmutabilidad'
+require_relative '../tp_inmutabilidad_spec'
 
 describe 'Case Object' do
 

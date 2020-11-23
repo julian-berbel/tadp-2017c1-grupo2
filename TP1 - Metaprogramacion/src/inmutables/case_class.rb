@@ -6,20 +6,19 @@ end
 
 module CaseClass
   def self.included(incluyente)
-    incluyente.singleton_class.send(:alias_method, :_new, :new)
     incluyente.extend(ClassMethods)
     incluyente.include(InstanceMethods)
   end
-  
+
   module ClassMethods
     def new(*args)
-      super(*args).freeze
+      super.freeze
     end
 
     def inherited(from)
       raise 'No se puede heredar de una Case Class!'
     end
-    
+
     def attr_accessor(*args)
       attr_reader *args
 
@@ -30,22 +29,18 @@ module CaseClass
       end
     end
   end
-  
+
   module InstanceMethods
     def var_values
-      instance_variables.map do |var|
-        instance_variable_get(var)
-      end
+      instance_variables.map { |var| instance_variable_get var }
     end
-    
+
     def ===(otro)
-      var_values.zip(otro.var_values).all? do |patron, variable|
-        patron === variable
-      end
+      var_values.zip(otro.var_values).all? { |patron, variable| patron === variable }
     end
-    
+
     def copy(*lambdas)
-      copia = self.class._new(*var_values)
+      copia = dup
 
       lambdas.each do |lambda|
         variable = "@#{lambda.parameters.first.last}"

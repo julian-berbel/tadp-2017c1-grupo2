@@ -1,10 +1,10 @@
 package dragones
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import postas.requerimientos.BarbaridadMinima
 import participantes.Vikingo._
 
-class TestDragon extends FlatSpec {
+class TestDragon extends AnyFlatSpec {
 
   val nadder: Nadder = Nadder(10)
   val furiaNocturna: FuriaNocturna = FuriaNocturna(15,20)

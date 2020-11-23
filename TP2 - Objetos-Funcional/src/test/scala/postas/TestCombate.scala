@@ -1,11 +1,11 @@
 package postas
 
 import items.Arma
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Caracteristicas
 import participantes.Vikingo._
 
-class TestCombate extends FlatSpec {
+class TestCombate extends AnyFlatSpec {
 
   "A Combat Relay" should "be won by the viking with the highest damage" in {
     assertResult("Patan")(Combate(0).competir(List(astrid, patan, hipo, pataPez), List.empty).head.nombre)

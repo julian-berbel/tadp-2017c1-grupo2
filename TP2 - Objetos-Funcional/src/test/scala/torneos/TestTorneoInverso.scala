@@ -1,11 +1,13 @@
 package torneos
 
+
+import org.scalatest.flatspec.AnyFlatSpec
+
 import dragones.chimuelo
-import org.scalatest._
 import participantes.Vikingo._
 import postas.requerimientos.MonturaRequerida
 
-class TestTorneoInverso extends FlatSpec {
+class TestTorneoInverso extends AnyFlatSpec {
   val vikingos = List(astrid, patan, hipo, pataPez)
 
   val torneo = TorneoInverso(List.empty, List.empty)

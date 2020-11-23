@@ -1,11 +1,11 @@
 package torneos
 
 import dragones.Nadder
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Vikingo._
 import postas.Combate
 
-class TestTorneoConVeto extends FlatSpec {
+class TestTorneoConVeto extends AnyFlatSpec {
   val vikingos = List(hipo, patan)
 
   val torneo = new TorneoConVeto(List(Combate(0)), List(Nadder(10)), {_ => false})

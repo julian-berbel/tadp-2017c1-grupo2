@@ -1,11 +1,11 @@
 package postas
 
 import dragones.chimuelo
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Vikingo._
 import postas.requerimientos.MonturaRequerida
 
-class TestCarrera extends FlatSpec {
+class TestCarrera extends AnyFlatSpec {
 
   "A Race Relay" should "be won by the viking with the highest speed" in {
     assertResult("PataPez")(Carrera(15).competir(List(astrid, patan, hipo, pataPez), List.empty).head.nombre)

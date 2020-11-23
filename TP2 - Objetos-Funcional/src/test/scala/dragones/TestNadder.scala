@@ -1,11 +1,11 @@
 package dragones
 
 import items.Maza
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Caracteristicas
 import participantes.Vikingo._
 
-class TestNadder extends FlatSpec {
+class TestNadder extends AnyFlatSpec {
 
   val nadder: Nadder = Nadder(10)
 

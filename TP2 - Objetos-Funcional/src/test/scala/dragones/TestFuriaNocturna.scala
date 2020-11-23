@@ -1,8 +1,8 @@
 package dragones
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 
-class TestFuriaNocturna extends FlatSpec {
+class TestFuriaNocturna extends AnyFlatSpec {
 
   val furiaNocturna: FuriaNocturna = FuriaNocturna(15,20)
 

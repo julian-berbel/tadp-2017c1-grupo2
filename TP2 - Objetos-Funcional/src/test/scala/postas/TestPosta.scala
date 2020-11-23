@@ -1,11 +1,11 @@
 package postas
 
 import dragones.chimuelo
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Jinete
 import participantes.Vikingo._
 
-class TestPosta extends FlatSpec {
+class TestPosta extends AnyFlatSpec {
 
   "A Relay" should "not let a viking whose hunger would be over 100 after running participate" in {
     assert(!hipo.puedeCorrer(Carrera(150)))
@@ -16,7 +16,7 @@ class TestPosta extends FlatSpec {
   }
 
   it should "only assign a dragon once when zipping dragons and vikings" in {
-    assertResult(List(hipo, Jinete(hipo, chimuelo)))(Pesca().emparejar(List(hipo, hipo), List(chimuelo)))
+    assertResult(List(Jinete(hipo, chimuelo), hipo))(Pesca().emparejar(List(hipo, hipo), List(chimuelo)))
   }
 
 }

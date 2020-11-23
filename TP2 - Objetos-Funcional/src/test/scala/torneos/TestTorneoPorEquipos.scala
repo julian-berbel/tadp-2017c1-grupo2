@@ -1,12 +1,12 @@
 package torneos
 
 import items.Hacha
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.{Caracteristicas, Equipo}
 import participantes.Vikingo._
 import postas.Pesca
 
-class TestTorneoPorEquipos extends FlatSpec {
+class TestTorneoPorEquipos extends AnyFlatSpec {
   val caracteristicasDebiles = Caracteristicas(peso = 1, item = Hacha(1), barbarosidad = 1, hambre = 0, velocidad = 1)
   val caracteristicasFuertes = Caracteristicas(peso = 10, item = Hacha(1), barbarosidad = 10, hambre = 0, velocidad = 10)
 

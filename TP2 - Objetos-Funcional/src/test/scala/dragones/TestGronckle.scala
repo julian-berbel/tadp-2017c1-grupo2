@@ -1,9 +1,9 @@
 package dragones
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Vikingo._
 
-class TestGronckle extends FlatSpec {
+class TestGronckle extends AnyFlatSpec {
 
   val gronckle: Gronckle = Gronckle(10, 30)
 

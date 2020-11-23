@@ -1,13 +1,13 @@
 package torneos
 
 import dragones._
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Vikingo._
 import postas.{Carrera, Combate, Pesca}
 import postas.requerimientos.BarbaridadMinima
 import torneos.estados.TodosPerdedores
 
-class TestTorneo extends FlatSpec {
+class TestTorneo extends AnyFlatSpec {
 
   val nadder: Nadder = Nadder(10)
   val furiaNocturna: FuriaNocturna = FuriaNocturna(15,20)

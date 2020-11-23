@@ -1,9 +1,9 @@
 package torneos
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Vikingo._
 
-class TestTorneoEstandar extends FlatSpec {
+class TestTorneoEstandar extends AnyFlatSpec {
 
   val vikingos = List(astrid, patan, hipo, pataPez)
 

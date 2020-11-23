@@ -1,13 +1,13 @@
 package participantes
 
 import items._
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import Vikingo._
 import dragones._
 import postas.{Carrera, Combate, Pesca}
 import postas.requerimientos.BarbaridadMinima
 
-class TestVikingos extends FlatSpec {
+class TestVikingos extends AnyFlatSpec {
 
   val nadder: Nadder = Nadder(10)
   val furiaNocturna: FuriaNocturna = FuriaNocturna(15,20)

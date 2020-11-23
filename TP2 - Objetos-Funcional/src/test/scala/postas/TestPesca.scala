@@ -1,10 +1,10 @@
 package postas
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 import participantes.Vikingo._
 import postas.requerimientos.PesoMinimo
 
-class TestPesca extends FlatSpec {
+class TestPesca extends AnyFlatSpec {
 
   "A Fishing Relay" should "be won by the viking who can carry the most" in {
     assertResult("PataPez")(Pesca().competir(List(astrid, patan, hipo, pataPez), List.empty).head.nombre)

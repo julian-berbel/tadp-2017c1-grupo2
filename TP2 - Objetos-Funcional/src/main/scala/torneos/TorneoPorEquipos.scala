@@ -11,9 +11,5 @@ case class TorneoPorEquipos(postas: List[Posta], dragones: List[Dragon]) extends
   }
 
   def reagrupar(vikingos: List[Vikingo], originales: List[Equipo]): List[Equipo] =
-    originales.map{original =>
-      Equipo(vikingos.filter{vikingo =>
-        original.miembros.map(_.nombre).contains(vikingo.nombre)
-      })
-    }.filter(_.leQuedanMiembros)
+    originales.map(_.selectMembers(vikingos)).flatten
 }

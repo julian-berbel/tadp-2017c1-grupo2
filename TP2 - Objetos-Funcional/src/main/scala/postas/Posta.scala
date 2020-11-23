@@ -1,5 +1,7 @@
 package postas
 
+import scala.collection.mutable.ListBuffer
+
 import dragones.Dragon
 import participantes.Vikingo.Vikingo
 import participantes.{Jinete, Participante}
@@ -27,19 +29,16 @@ trait Posta {
     vikingo.deltaHambre(this.cuantaHambreDa)
 
   def emparejar(vikingos: List[Vikingo], dragones: List[Dragon]): List[Participante] = {
-    vikingos.foldLeft((List.empty, List.empty): List[Option[Participante]] Tuple2 List[Dragon]){ (tuplaParticipantesDragones, vikingo) =>
-      val participantes = tuplaParticipantesDragones._1
-      val dragonesYaElegidos = tuplaParticipantesDragones._2
+    var dragonesDisponibles : ListBuffer[Dragon] = dragones.to(ListBuffer)
 
-      val mejorParticipante: Option[Participante] =
-        vikingo.mejorMontura(dragones.diff(dragonesYaElegidos), this)
-
-      val _dragones = mejorParticipante.map{
-        case Jinete(_, dragon) => dragon :: dragonesYaElegidos
-        case _ => dragonesYaElegidos
-      }.getOrElse(dragonesYaElegidos)
-
-      (mejorParticipante::participantes, _dragones)
-    }._1.filter(_.isDefined).map(_.get)
+    vikingos.map { vikingo =>
+      vikingo.mejorMontura(dragonesDisponibles.toList, this).map {
+        case jinete @ Jinete(_, dragon) => {
+          dragonesDisponibles -= dragon
+          jinete
+        }
+        case _ => vikingo
+      }
+    }.flatten
   }
 }
